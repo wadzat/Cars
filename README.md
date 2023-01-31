@@ -1,1 +1,1 @@
-# docker-symfony6-php8.2-nginx-postgresql-chrome-webdriver
+Next step : automatic SF6 init, and wire it to PostgreSQL
