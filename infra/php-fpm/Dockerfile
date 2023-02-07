@@ -26,6 +26,10 @@ RUN apk --no-cache add shadow && \
 
 WORKDIR /var/www
 
+RUN git config --global user.email "wadzat@gmail.com" \ 
+    && git config --global user.name "Nicolas PERROT"
+
+
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 RUN wget https://get.symfony.com/cli/installer -O - | bash
