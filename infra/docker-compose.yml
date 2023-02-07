@@ -4,8 +4,8 @@ services:
   php-fpm:
     container_name: php-fpm
     build:
-      context: ./../
-      dockerfile: ./docker-symfony6-php8.2-nginx-postgresql-chrome-webdriver/php-fpm/Dockerfile
+      context: .
+      dockerfile: ./php-fpm/Dockerfile
       args:
         - PUID=${PUID}
         - PGID=${PGID}
@@ -19,7 +19,8 @@ services:
       # Follow instruction picture in this catalog -> PhpStorm-XdebugSettings.png
       PHP_IDE_CONFIG: "serverName=Docker"
     volumes:
-      - ./../:/var/www/
+      - ../src/:/var/www/
+      - ./php.ini:/usr/local/etc/php/php.ini
 
   nginx:
     container_name: nginx
@@ -28,7 +29,8 @@ services:
     ports:
       - ${NGINX_HOST_HTTP_PORT}:80
     volumes:
-      - ..:/var/www:rw
+      - ../src:/var/www:rw
+      - ./php.ini:/usr/local/etc/php/php.ini
     depends_on:
       - php-fpm
 
