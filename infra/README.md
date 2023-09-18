@@ -1,4 +1,14 @@
-Next step : automatic SF6 init, and wire it to PostgreSQL
+# Installation du projet
 
-docker exec -it php-fpm bash
-=> symfony new mywebapp --version="6.2.*" --webapp
+## après avoir exécuté le docker-compose up : 
+
+
+** Initialisation du projet Symfony : **
+
+> docker exec -it php-fpm bash
+> symfony new mywebapp --version="6.3.*" --webapp
+> cd mywebapp
+> composer install
+
+** connexion de Doctrine à PostgreSQL : **
+Editer le fichier src/mywebapp/config/packages/doctrine.yaml
