@@ -11,4 +11,6 @@
 > composer install
 
 ** connexion de Doctrine à PostgreSQL : **
-Editer le fichier src/mywebapp/config/packages/doctrine.yaml
+le fichier src/mywebapp/config/packages/doctrine.yaml nous renvoie vers le .env
+> editer /mywebapp/.env.local : 
+> DATABASE_URL=postgres://user_symfony@postrges:54322
