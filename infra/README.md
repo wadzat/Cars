@@ -27,3 +27,17 @@ connexion psql depuis son conteneur : ``psql -p 5432 -h localhost -U user_symfon
 
 > pour virer le PHP Warning:  Module "intl" is already loaded in Unknown on line 0 : commenter la ligne qui est dans le fichier /usr/local/etc/php/conf.d/docker-php-ext-intl.ini  (déjà loadé dans php.ini)
 
+## Configuration de Xdebug dans PHPStorm :
+> Preférences > PHP > Servers
+> > - Name : Docker
+> > - Host : 127.0.0.1
+> > - Port : 888
+> > - Cocher "use path mappings"
+> > - Eventuellement préciser les chemins selon arbo du container
+
+> Run > Edit configurations
+> > - cliquer sur +
+> > - name : my_app_remote
+> > - Server : Docker
+> > - IDE key : PHPSTORM
+
