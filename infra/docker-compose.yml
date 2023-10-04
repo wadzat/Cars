@@ -9,7 +9,7 @@ services:
       args:
         - PUID=${PUID}
         - PGID=${PGID}
-        - INSTALL_XDEBUG=${INSTALL_XDEBUG}
+        - INSTALL_XDEBUG=true
     networks:
       - default
     environment:
@@ -25,6 +25,8 @@ services:
       - ./php.ini:/usr/local/etc/php/php.ini
     depends_on: 
       - postgres
+    extra_hosts:
+      - host.docker.internal:host-gateway
 
   nginx:
     container_name: nginx
