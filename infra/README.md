@@ -25,8 +25,6 @@ dans doctrine.yaml : préciser la version de postgresql (indispensable)
 
 connexion psql depuis son conteneur : ``psql -p 5432 -h localhost -U user_symfony -d db_symfony`` 
 
-> pour virer le PHP Warning:  Module "intl" is already loaded in Unknown on line 0 : commenter la ligne qui est dans le fichier /usr/local/etc/php/conf.d/docker-php-ext-intl.ini  (déjà loadé dans php.ini)
-
 ## Configuration de Xdebug dans PHPStorm :
 > Preférences > PHP > Servers
 > > - Name : Docker
