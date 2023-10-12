@@ -8,11 +8,12 @@ RUN pecl install xdebug && docker-php-ext-enable xdebug;
 COPY ./php-fpm/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 RUN apk add --no-cache libpq-dev && docker-php-ext-install pdo_pgsql
+
 RUN apk add icu-dev \
     && docker-php-ext-configure intl \
     && docker-php-ext-install intl
 
-#Configure non-root user
+# Configure non-root user
 ARG PUID=1000
 ARG PGID=1000
 
@@ -25,9 +26,18 @@ WORKDIR /var/www
 RUN git config --global user.email "wadzat@gmail.com" \ 
     && git config --global user.name "Nicolas PERROT"
 
+# install all locales on alpine (cli: locale -a)
+ENV MUSL_LOCALE_DEPS cmake make musl-dev gcc gettext-dev libintl
+ENV MUSL_LOCPATH /usr/share/i18n/locales/musl
+RUN apk add --no-cache \
+    $MUSL_LOCALE_DEPS \
+    && wget https://gitlab.com/rilian-la-te/musl-locales/-/archive/master/musl-locales-master.zip \
+    && unzip musl-locales-master.zip \
+      && cd musl-locales-master \
+      && cmake -DLOCALE_PROFILE=OFF -D CMAKE_INSTALL_PREFIX:PATH=/usr . && make && make install \
+      && cd .. && rm -r musl-locales-master
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
+# Symfony
 RUN wget https://get.symfony.com/cli/installer -O - | bash
 RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
 
