@@ -23,7 +23,7 @@ RUN apk --no-cache add shadow && \
 
 WORKDIR /var/www
 
-RUN git config --global user.email "wadzat@gmail.com" \ 
+RUN git config --global user.email "wadzat@gmail.com" \
     && git config --global user.name "Nicolas PERROT"
 
 # install all locales on alpine (cli: locale -a)
@@ -34,8 +34,11 @@ RUN apk add --no-cache \
     && wget https://gitlab.com/rilian-la-te/musl-locales/-/archive/master/musl-locales-master.zip \
     && unzip musl-locales-master.zip \
       && cd musl-locales-master \
-      && cmake -DLOCALE_PROFILE=OFF -D CMAKE_INSTALL_PREFIX:PATH=/usr . && make && make install \
+      && cmake -D LOCALE_PROFILE=OFF -D CMAKE_INSTALL_PREFIX:PATH=/usr . && make && make install \
       && cd .. && rm -r musl-locales-master
+
+# Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Symfony
 RUN wget https://get.symfony.com/cli/installer -O - | bash
