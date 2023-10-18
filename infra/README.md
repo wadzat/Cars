@@ -39,3 +39,5 @@ connexion psql depuis son conteneur : ``psql -p 5432 -h localhost -U user_symfon
 > > - Server : Docker
 > > - IDE key : PHPSTORM
 
+## Installation d'easy admin
+> symfony composer req "admin:^4"
