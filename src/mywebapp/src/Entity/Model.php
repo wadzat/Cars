@@ -21,7 +21,7 @@ class Model
     #[ORM\JoinColumn(nullable: false)]
     private ?Brand $brand = null;
 
-    #[ORM\Column(type: Types::SMALLINT)]
+    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
     private ?int $power = null;
 
     #[ORM\Column(type: Types::SMALLINT, nullable: true)]
@@ -93,5 +93,10 @@ class Model
         $this->energy = $energy;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getBrand().' '.$this->getName().' '.$this->getYear().' '.$this->getEnergy();
     }
 }
