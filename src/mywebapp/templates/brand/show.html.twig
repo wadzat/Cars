@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ brand.name }}!{% endblock %}
+
+{% block body %}
+<div>
+    <h1>{{ brand.name }}</h1>
+
+    <h2>La marque</h2>
+    <div>{{ brand.description }}</div>
+
+
+    <h2>Modèles</h2>
+    <ul>
+        {% for model in models %}
+            <li><a href="{{ path('model_show', {id: model.id}) }}">{{ model }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
