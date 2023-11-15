@@ -1,0 +1,4 @@
+parameters:
+  upload.images.directory: '%env(IMAGES_UPLOAD_DIR)%'
+  upload.images.path: '%env(IMAGES_UPLOAD_PATH)%'
+

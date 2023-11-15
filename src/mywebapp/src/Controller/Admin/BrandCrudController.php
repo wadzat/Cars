@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Brand;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -21,6 +22,9 @@ class BrandCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('name'),
             TextEditorField::new('description')->hideOnIndex(),
+            ImageField::new('logo')
+                ->setBasePath($this->getParameter('upload.images.path').Brand::DIR_NAME)
+                ->setUploadDir($this->getParameter('upload.images.directory').Brand::DIR_NAME),
         ];
     }
 
