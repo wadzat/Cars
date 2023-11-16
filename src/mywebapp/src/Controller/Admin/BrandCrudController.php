@@ -24,7 +24,8 @@ class BrandCrudController extends AbstractCrudController
             TextEditorField::new('description')->hideOnIndex(),
             ImageField::new('logo')
                 ->setBasePath($this->getParameter('upload.images.path').Brand::DIR_NAME)
-                ->setUploadDir($this->getParameter('upload.images.directory').Brand::DIR_NAME),
+                ->setUploadDir($this->getParameter('upload.images.directory').Brand::DIR_NAME)
+                ->setUploadedFileNamePattern('[slug]-[uuid].[extension]'),
         ];
     }
 
