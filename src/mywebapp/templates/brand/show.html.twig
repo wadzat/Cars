@@ -7,7 +7,8 @@
     <h1>{{ brand.name }}</h1>
 
     <h2>La marque</h2>
-    <div>{{ brand.description }}</div>
+   <div>{{ brand.description|raw }}</div>
+    <img src="{{ asset('/upload/images/brand/' ~ brand.logo) }}" />
 
 
     <h2>Modèles</h2>
