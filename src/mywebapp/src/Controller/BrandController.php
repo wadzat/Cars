@@ -20,7 +20,7 @@ class BrandController extends AbstractController
     }
 
     #[Route('/marque/{id}', name: 'brand_show')]
-    public function show(BrandRepository $brandRepository, ModelRepository $modelRepository, Brand $brand): Response
+    public function show(ModelRepository $modelRepository, Brand $brand): Response
     {
         return $this->render('brand/show.html.twig', [
             'brand' => $brand,
