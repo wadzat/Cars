@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Brand;
 use App\Entity\Model;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,11 +18,26 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ModelRepository extends ServiceEntityRepository
 {
+    public const PAGINATOR_PER_PAGE = 5;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Model::class);
     }
 
+    public function getModelPaginator(Brand $brand, int $offset): Paginator
+    {
+        $query = $this->createQueryBuilder('m')
+            ->andWhere('m.brand = :brand')
+            ->setParameter('brand', $brand)
+            ->orderBy('m.name')
+            ->setMaxResults(self::PAGINATOR_PER_PAGE)
+            ->setFirstResult($offset)
+            ->getQuery()
+        ;
+
+        return new Paginator($query);
+    }
 //    /**
 //     * @return Model[] Returns an array of Model objects
 //     */

@@ -13,10 +13,21 @@
 
 
     <h2>Modèles</h2>
+    <p>{{ models|length }} modèles</p>
+
     <ul>
         {% for model in models %}
             <li><a href="{{ path('model_show', {id: model.id}) }}">{{ model }}</a></li>
         {% endfor %}
     </ul>
+
+    {% if previous >= 0 %}
+        <a href="{{ path('brand_show', {id: brand.id, offset: previous}) }}">Précédent</a>
+    {% endif %}
+
+    {% if next < models|length %}
+        <a href="{{ path('brand_show', {id: brand.id, offset: next}) }}">Suivant</a>
+    {% endif %}
+
 </div>
 {% endblock %}
