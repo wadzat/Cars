@@ -11,6 +11,14 @@
         {% endblock %}
     </head>
     <body>
+        <header>
+            <h1><a href="{{ path('brand_list') }}">Accueil</a></h1>
+            <ul>
+            {% for brand in brands %}
+                <li><a href="{{ path('brand_show', { id: brand.id }) }}">{{ brand }}</a></li>
+            {% endfor %}
+            </ul>
+        </header>
         {% block body %}{% endblock %}
     </body>
 </html>

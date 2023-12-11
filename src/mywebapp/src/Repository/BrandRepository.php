@@ -21,6 +21,11 @@ class BrandRepository extends ServiceEntityRepository
         parent::__construct($registry, Brand::class);
     }
 
+    public function findAll(): array
+    {
+        return $this->findBy([], ['name' => 'ASC']);
+    }
+
 //    /**
 //     * @return Brand[] Returns an array of Brand objects
 //     */
