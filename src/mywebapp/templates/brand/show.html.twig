@@ -22,11 +22,11 @@
     </ul>
 
     {% if previous >= 0 %}
-        <a href="{{ path('brand_show', {id: brand.id, offset: previous}) }}">Précédent</a>
+        <a href="{{ path('brand_show', {slug: brand.slug, offset: previous}) }}">Précédent</a>
     {% endif %}
 
     {% if next < models|length %}
-        <a href="{{ path('brand_show', {id: brand.id, offset: next}) }}">Suivant</a>
+        <a href="{{ path('brand_show', {slug: brand.slug, offset: next}) }}">Suivant</a>
     {% endif %}
 
 </div>

@@ -20,7 +20,7 @@ class BrandController extends AbstractController
         ]);
     }
 
-    #[Route('/marque/{id}', name: 'brand_show')]
+    #[Route('/marque/{slug}', name: 'brand_show')]
     public function show(Request $request, ModelRepository $modelRepository, Brand $brand): Response
     {
         $offset = max(0, $request->query->getInt('offset', 0));
