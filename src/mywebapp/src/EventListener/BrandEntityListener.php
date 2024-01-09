@@ -20,12 +20,12 @@ class BrandEntityListener
 
     public function prePersist(Brand $brand, PrePersistEventArgs $event): void
     {
-        $brand->computeSlug($this->slugger);
+        $brand->computeSlug($this->slugger, $brand->getName());
     }
 
     public function preUpdate(Brand $brand, PreUpdateEventArgs $event): void
     {
-        $brand->computeSlug($this->slugger);
+        $brand->computeSlug($this->slugger, $brand->getName());
     }
 
 }
