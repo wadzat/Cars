@@ -17,7 +17,7 @@
 
     <ul>
         {% for model in models %}
-            <li><a href="{{ path('model_show', {id: model.id}) }}">{{ model }}</a></li>
+            <li><a href="{{ path('model_show', {brand_slug: brand.slug, slug: model.slug}) }}">{{ model }}</a></li>
         {% endfor %}
     </ul>
 

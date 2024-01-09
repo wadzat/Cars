@@ -3,12 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\ModelRepository;
+use App\Trait\Sluggable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ModelRepository::class)]
 class Model
 {
+    use Sluggable;
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

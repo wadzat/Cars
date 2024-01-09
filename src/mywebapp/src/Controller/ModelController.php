@@ -9,7 +9,7 @@ use App\Entity\Model;
 
 class ModelController extends AbstractController
 {
-    #[Route('/modele/{id}', name: 'model_show')]
+    #[Route('/marque/{brand_slug}/modele/{slug}', name: 'model_show')]
     public function show(Model $model): Response
     {
         return $this->render('model/show.html.twig', [
