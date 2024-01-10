@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ModelRepository;
 use App\Trait\Sluggable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,6 +34,14 @@ class Model
 
     #[ORM\ManyToOne]
     private ?Energy $energy = null;
+
+    #[ORM\OneToMany(mappedBy: 'model', targetEntity: UserCar::class)]
+    private Collection $userCars;
+
+    public function __construct()
+    {
+        $this->userCars = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -101,5 +111,35 @@ class Model
     public function __toString(): string
     {
         return $this->getBrand().' '.$this->getName().' '.$this->getYear().' '.$this->getEnergy();
+    }
+
+    /**
+     * @return Collection<int, UserCar>
+     */
+    public function getUserCars(): Collection
+    {
+        return $this->userCars;
+    }
+
+    public function addUserCar(UserCar $userCar): static
+    {
+        if (!$this->userCars->contains($userCar)) {
+            $this->userCars->add($userCar);
+            $userCar->setModel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserCar(UserCar $userCar): static
+    {
+        if ($this->userCars->removeElement($userCar)) {
+            // set the owning side to null (unless already changed)
+            if ($userCar->getModel() === $this) {
+                $userCar->setModel(null);
+            }
+        }
+
+        return $this;
     }
 }
