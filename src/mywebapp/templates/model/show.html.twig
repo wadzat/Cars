@@ -11,5 +11,19 @@
             {{ form(userCarForm) }}
         </div>
 
+        <h4>Voitures des membres</h4>
+        <div>
+            <ul>
+                {% for userCar in userCars %}
+                    <li>
+                        Propriétaire : {{ userCar.owner }} <br />
+                        Description :
+                        {{ userCar.text }} <br />
+                        <img src="{{ asset(userCarsDir ~ '/userCar/' ~ userCar.photoFilename) }}" style="max-height: 150px; max-width: 250px;" />
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
     </div>
 {% endblock %}

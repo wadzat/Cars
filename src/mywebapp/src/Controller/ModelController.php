@@ -46,11 +46,18 @@ class ModelController extends AbstractController
 
             $this->entityManager->persist($userCar);
             $this->entityManager->flush();
+
+            return $this->redirectToRoute('model_show', [
+                'brand_slug' => $request->attributes->get('brand_slug'),
+                'slug' => $request->attributes->get('slug'),
+            ]);
         }
 
         return $this->render('model/show.html.twig', [
             'model' => $model,
             'userCarForm' => $form,
+            'userCars' => $model->getUserCars(),
+            'userCarsDir' => $this->getParameter('upload.images.path'),
         ]);
     }
 
