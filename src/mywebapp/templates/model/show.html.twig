@@ -4,9 +4,26 @@
 
 {% block body %}
     <div>
-        <h1><a href="{{ path('brand_show', {slug: model.brand.slug}) }}">{{ model.brand }}</a>  {{ model.name }}</h1>
+        <h2><img src="{{ asset('/upload/images/brand/' ~ model.brand.logo) }}" style="max-width: 250px; max-height: 100px;" /><a href="{{ path('brand_show', {slug: model.brand.slug}) }}">{{ model.brand }}</a>  {{ model.name }}</h2>
 
-        <img src="{{ asset('/upload/images/brand/' ~ model.brand.logo) }}" />
+        <h4>J'ai une voiture de ce modèle</h4>
+        <div>
+            {{ form(userCarForm) }}
+        </div>
+
+        <h4>Voitures des membres</h4>
+        <div>
+            <ul>
+                {% for userCar in userCars %}
+                    <li>
+                        Propriétaire : {{ userCar.owner }} <br />
+                        Description :
+                        {{ userCar.text }} <br />
+                        <img src="{{ asset(userCarsDir ~ '/userCar/' ~ userCar.photoFilename) }}" style="max-height: 150px; max-width: 250px;" />
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
 
     </div>
 {% endblock %}
