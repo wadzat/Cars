@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UserCarRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserCarRepository::class)]
 class UserCar
@@ -15,6 +16,7 @@ class UserCar
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $owner = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -26,6 +28,8 @@ class UserCar
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photoFilename = null;
+
+    public const DIR_NAME = 'userCar/';
 
     public function getId(): ?int
     {

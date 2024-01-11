@@ -6,9 +6,11 @@ use App\Entity\Model;
 use App\Entity\UserCar;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 
 class UserCarType extends AbstractType
 {
@@ -16,21 +18,21 @@ class UserCarType extends AbstractType
     {
         $builder
             ->add('owner', null, [
-                'label' => 'Votre nom'
+                'label' => 'Votre nom',
             ])
             ->add('text', null, [
-                'label' => 'Description'
+                'label' => 'Description',
             ])
-            ->add('photoFilename', null, [
-                'label' => 'Photo'
-            ])
-            ->add('model', EntityType::class, [
-                'class' => Model::class,
-                'choice_label' => 'name',
-                'label' => 'Modèle'
+            ->add('photo', FileType::class, [
+                'required' => false,
+                'mapped' => false,
+                'constraints' => [
+                    new Image(['maxSize' => '1024k'])
+                ],
+                'label' => 'Photo',
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Enregistrer'
+                'label' => 'Enregistrer',
             ])
         ;
     }
