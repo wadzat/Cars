@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Model;
 use App\Entity\UserCar;
 use App\Form\UserCarType;
+use App\Service\SpamChecker;
 
 class ModelController extends AbstractController
 {
@@ -21,7 +22,11 @@ class ModelController extends AbstractController
     }
 
     #[Route('/marque/{brand_slug}/modele/{slug}', name: 'model_show')]
-    public function show(Request $request, Model $model): Response
+    public function show(
+        Request $request,
+        Model $model,
+        SpamChecker $spamChecker,
+    ): Response
     {
         $userCar = new UserCar();
         $form = $this->createForm(UserCarType::class, $userCar);
@@ -45,6 +50,17 @@ class ModelController extends AbstractController
             }
 
             $this->entityManager->persist($userCar);
+
+            $context = [
+                'user_ip' => $request->getClientIp(),
+                'user_agent' => $request->headers->get('user_agent'),
+                'referrer' => $request->headers->get('referer'),
+                'permalink' => $request->getUri(),
+            ];
+            if (2 === $spamChecker->getSpamScore($userCar, $context)) {
+                throw new \RuntimeException('Spam détecté.');
+            }
+
             $this->entityManager->flush();
 
             return $this->redirectToRoute('model_show', [

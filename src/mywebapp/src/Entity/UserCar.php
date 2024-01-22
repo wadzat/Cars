@@ -29,6 +29,10 @@ class UserCar
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photoFilename = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Email]
+    private ?string $ownerEmail = null;
+
     public const DIR_NAME = 'userCar/';
 
     public function getId(): ?int
@@ -80,6 +84,18 @@ class UserCar
     public function setPhotoFilename(?string $photoFilename): static
     {
         $this->photoFilename = $photoFilename;
+
+        return $this;
+    }
+
+    public function getOwnerEmail(): ?string
+    {
+        return $this->ownerEmail;
+    }
+
+    public function setOwnerEmail(?string $ownerEmail): static
+    {
+        $this->ownerEmail = $ownerEmail;
 
         return $this;
     }
